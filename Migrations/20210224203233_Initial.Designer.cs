@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JonahsBooks.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20210218054105_Initial")]
+    [Migration("20210224203233_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace JonahsBooks.Migrations
                     b.Property<string>("isbn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("numPages")
+                        .HasColumnType("int");
 
                     b.Property<double>("price")
                         .HasColumnType("float");

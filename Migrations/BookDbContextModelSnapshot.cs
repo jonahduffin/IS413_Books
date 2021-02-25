@@ -37,6 +37,9 @@ namespace JonahsBooks.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("numPages")
+                        .HasColumnType("int");
+
                     b.Property<double>("price")
                         .HasColumnType("float");
 

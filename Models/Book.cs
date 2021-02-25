@@ -23,5 +23,7 @@ namespace JonahsBooks.Models
         public string classification { get; set; }
         [Required]
         public double price { get; set; }
+        [Required]
+        public int numPages { get; set; }
     }
 }

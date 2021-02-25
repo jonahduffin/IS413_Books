@@ -17,7 +17,8 @@ namespace JonahsBooks.Migrations
                     publisher = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isbn = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     classification = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<double>(type: "float", nullable: false)
+                    price = table.Column<double>(type: "float", nullable: false),
+                    numPages = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

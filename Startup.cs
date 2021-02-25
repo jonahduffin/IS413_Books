@@ -56,8 +56,11 @@ namespace JonahsBooks
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "pagination",
+                    "P{page}",
+                    new {Controller = "Home", action = "Index"}
+                    );
+                endpoints.MapDefaultControllerRoute();
             });
             SeedData.EnsurePopulated(app);
         }
