@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model Book
+}
+
+<tr>
+    <td>@Model.title</td>
+    <td>@Model.author</td>
+    <td>@Model.publisher</td>
+    <td>@Model.isbn</td>
+    <td>@Model.classification</td>
+    <td>$@Math.Round((Double)Model.price, 2)</td>
+    <td>@Model.numPages</td>
+</tr>

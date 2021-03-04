@@ -55,11 +55,16 @@ namespace JonahsBooks
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    "pagination",
-                    "P{page}",
-                    new {Controller = "Home", action = "Index"}
-                    );
+                //Create 3 different URL end points- one for page, one for category, one for both
+                endpoints.MapControllerRoute("catpage",
+                    "{category}/P{page:int}",
+                    new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("page",
+                    "P{page:int}",
+                    new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("category",
+                    "{category}",
+                    new { Controller = "Home", action = "Index", page = 1 });
                 endpoints.MapDefaultControllerRoute();
             });
             SeedData.EnsurePopulated(app);
