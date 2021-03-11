@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JonahsBooks.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,9 +29,14 @@ namespace JonahsBooks
             services.AddControllersWithViews();
             services.AddDbContext<BookDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:JonahsBooksConnection"]);
+                options.UseSqlite(Configuration["ConnectionStrings:JonahsBooksConnection"]);
             });
             services.AddScoped<IBookRepository, EFBookRepository>();
+            services.AddRazorPages();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +55,8 @@ namespace JonahsBooks
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -57,15 +65,16 @@ namespace JonahsBooks
             {
                 //Create 3 different URL end points- one for page, one for category, one for both
                 endpoints.MapControllerRoute("catpage",
-                    "{category}/P{page:int}",
+                    "{category}/P{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
                 endpoints.MapControllerRoute("page",
-                    "P{page:int}",
+                    "P{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
                 endpoints.MapControllerRoute("category",
                     "{category}",
-                    new { Controller = "Home", action = "Index", page = 1 });
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
             SeedData.EnsurePopulated(app);
         }

@@ -13,4 +13,17 @@
     <td>@Model.classification</td>
     <td>$@Math.Round((Double)Model.price, 2)</td>
     <td>@Model.numPages</td>
+    <td>
+        <form id="@Model.BookID" asp-page="/Purchase" method="post">
+            <input type="hidden" asp-for="BookID" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <!--Commented out the span here since it seems the videos only used it for formatting. Kept the button.-->
+            <!--<span class="card-text p-1">
+                    @Model.title
+                    <button type="submit" class="btn-success btn-sm pull-right" style="float:right">Add to Cart</button>
+                </span>
+            -->
+            <button type="submit" class="btn-success btn-sm pull-right" style="float:right">Add to Cart</button>
+        </form>
+    </td>
 </tr>

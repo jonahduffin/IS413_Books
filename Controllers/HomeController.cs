@@ -22,7 +22,7 @@ namespace JonahsBooks.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index(string category, int page = 1) // page indicates which page of books to show. Defaults to page 1.
+        public IActionResult Index(string category, int pageNum = 1) // page indicates which page of books to show. Defaults to page 1.
         {
             //This returns data from Books database to the Home view
             return View(new BookListViewModel
@@ -30,12 +30,12 @@ namespace JonahsBooks.Controllers
                 Books = _repository.Books
                 .Where(p => category == null || p.classification.ToLower().Contains(category.ToLower())) // because category field is comma separated, we check to see if classification contains the category
                 .OrderBy(p => p.BookID)
-                .Skip((page - 1) * PageSize)
+                .Skip((pageNum - 1) * PageSize)
                 .Take(PageSize)
                 ,
                 PagingInfo = new PagingInfo
                 {
-                    CurrentPage = page,
+                    CurrentPage = pageNum,
                     ItemsPerPage = PageSize,
                     //Calculates page numbers based on category, if there is one
                     TotalNumItems = category == null ? _repository.Books.Count() : 

@@ -14,11 +14,11 @@
 </div>
 
 <div class="row p-3">
-    <div class="col-3">
+    <div class="col-2">
         <vc:navigation-menu />
     </div>
 
-    <div class="col-9">
+    <div class="col-10">
             <table class="table table-dark">
                 <thead class="thead-dark">
                     <tr>
@@ -28,7 +28,8 @@
                         <th>ISBN</th>
                         <th>Classification/Category</th>
                         <th>Price</th>
-                        <th>Number of Pages</th>
+                        <th># of Pages</th>
+                        <th>Add to Cart</th>
                     </tr>
                 </thead>
                 @foreach (var book in Model.Books)
